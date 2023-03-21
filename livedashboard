@@ -1,0 +1,35 @@
+Import RecentDonations from ./RecentDonations; 
+class Dashboard extends React.Component{
+  constructor(props){
+    super(props);
+    this.state={
+      donations: {},
+      pollingCount: 0,
+      delay: 2000,
+      teamLeaders: [1],
+      oldDonations: [],
+      bigDonation: null
+    }
+  }
+  componentDidMount(){
+    //this.interval = setInterval(this.poll, this.state.delay);
+    this.poll();
+  }
+  componentWillUnmount(){
+    clearInterval(this.interval);
+  }
+  poll = () => {
+    this.setState({pollingCount: this.state.pollingCount + 1, oldDonations: this.state.donations});
+    fetch('https://events.dancemarathon.com/api/events/5130/donations?limit=5')
+      .then(response => response.json())
+      .then(data => {
+        this.setState({donations: data})
+        data.forEach(d => {
+          if(!this.state.oldDonations.map(o => o.donationID).includes(d.donationID) && d.amount >= 50.0){
+            this.setState({bigDonation: d});
+            document.getElementById('donationAlert').classList.remove("donationAlertHidden");
+            this.start();
+          }
+        });
+      });
+  }      
