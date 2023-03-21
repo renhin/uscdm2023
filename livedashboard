@@ -33,3 +33,9 @@ class Dashboard extends React.Component{
         });
       });
   }      
+  start(){
+    var popup= setInterval(function() {
+      document.getElementById('donationAlert').classList.add("donationAlertHidden");
+      clearInterval(popup);
+    },8000);
+  }    
