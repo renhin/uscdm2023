@@ -39,3 +39,28 @@ class Dashboard extends React.Component{
       clearInterval(popup);
     },8000);
   }    
+  render(){
+    return <>Row className="filledRow">
+      <div className="donationTable">
+        <div className="donationAlert donationAlertHidden" id="donationAlert">
+          <h1><strong>{this.state.bigDonation ? this.state.bigDonation.recipientName : "Someone"}</strong> is a hero and rasied <strong>$(this.state.bigDonation)}
+        </div>
+        <RecentDonations donations={this.state.donations}/>
+      </div>        
+    </Row>
+    <Row style={{display: "inline-block"}}>
+      <div className="countdown">
+        <span💫</span>
+        <Countdown date={new Date("March 25, 2023 23:00:00)} daysInHours={true}/>
+        <span style = {{padding: 0}}> until Final Flip!</span>
+        <span>💫</span>
+    </Row>     
+    {/* <Row>
+      <div className="">
+        <Leaderboard title={"Test"} leaders={this.state.teamLeaders}/>
+      </div>     
+    </Row>*/}</>
+    }
+  }  
+  
+  export default Dashboard;
